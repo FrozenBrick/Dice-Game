@@ -1,38 +1,160 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-
 <head>
-  <meta charset="utf-8">
-  <title>Dicee</title>
-  <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Lobster" rel="stylesheet">
+    <meta charset="utf-8" />
+    <title>Dicee</title>
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Lobster" rel="stylesheet" />
 
+    <style>
+        body {
+            background-color: #121212;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Indie Flower', cursive;
+            color: #E0E0E0;
+        }
 
+        h1 {
+            font-family: 'Lobster', cursive;
+            text-shadow: 0 0 0px #2af598;
+            font-size: 8rem;
+            color: #2af598;
+            margin: 30px 0;
+            animation: glowing 3s ease-in-out;
+        }
 
+        @keyframes glowing {
+            0% { text-shadow: 0 0 0px #2af598; }
+            50% { text-shadow: 0 0 500px #2af598;}
+            100% {text-shadow: 0 0 0px #2af598;}
+            
+        }
+
+        .container {
+            text-align: center;
+            width: 100%;
+            max-width: 1200px;
+            height: 100vh;
+        }
+
+        .dice {
+            display: inline-block;
+            margin: 20px;
+        }
+
+        p {
+            color: #2af598;
+            font-size: 2rem;
+            margin: 10px 0;
+        }
+
+        img {
+            width: 250px;
+        }
+
+        img:hover {
+            transform: rotate(360deg) scale(1.1);
+        }
+
+        .roll-button {
+            background-color: #2af598;
+            color: #121212;
+            border: none;
+            margin-top: 50px;
+            padding: 15px 30px;
+            font-size: 2rem;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: background-color 0.3s, transform 0.3s;
+            font-family: 'Indie Flower', cursive;
+
+        }
+
+        .roll-button:hover {
+            background-color: #33ffd0;
+            transform: scale(1.1);
+            font-family: 'Indie Flower', cursive;
+
+        }
+
+        footer {
+            color: #E0E0E0;
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        @keyframes scaleUpDown {
+            0% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(0.75) rotate(180deg); }
+            100% { transform: scale(1) rotate(360deg); }
+
+        }
+
+        /* @keyframes imageEase {
+            50% { opacity: 50%; }
+           
+        } */
+
+        .transform-on-click {
+            animation: scaleUpDown 1s ease-in-out;
+            /* animation: imageEase 0.2s ease-in-out; */
+        }
+
+    </style>
 </head>
-
 <body>
-  <div class="container">
-    <h1>Refresh Me</h1>
+    <div class="container">
+        <h1>Roll The Dice</h1>
+        <div class="dice">
+            <p>Player 1</p>
+            <img class="img1" src="images/dice1.png" />
+        </div>
+        <div class="dice">
+            <p>Player 2</p>
+            <img class="img2" src="images/dice1.png" />
+        </div>
+        <div>
+          <button class="roll-button" onclick="rollDice()">Roll</button>
 
-    <div class="dice">
-      <p>Player 1</p>
-      <img class="img1" src="images/dice6.png">
+        </div>
     </div>
+    <footer>Enjoy the game!</footer>
 
-    <div class="dice">
-      <p>Player 2</p>
-      <img class="img2" src="images/dice6.png">
-    </div>
+    <script>
+      
 
-  </div>
+function rollDice() {
+    
 
 
+    var ranNum1 = Math.floor(Math.random()*6+1)
+    var ranNum2 = Math.floor(Math.random()*6+1)
+    
+    
+    document.querySelector('.img1').setAttribute("src", 'images/dice'+ranNum1+'.png')
+    document.querySelector('.img2').setAttribute("src", 'images/dice'+ranNum2+'.png')
+    
+    // Add the transformation class to both dice images
+    var diceImages = document.querySelectorAll(".dice img");
+    diceImages.forEach(function(img) {
+        img.classList.toggle("transform-on-click");
+    });
+    
+    // Remove the transformation class after the animation completes to allow re-adding on next click
+    setTimeout(function() {
+        diceImages.forEach(function(img) {
+            img.classList.remove("transform-on-click");
+        });
+    }, 1000); // Match the duration of the transform animation
+    
+    
+    }
+    
+    </script>
 </body>
-<script type="text/javascript" src="index.js"></script>
-
-<footer>
-Bilawal M
-  </footer>
-
 </html>
